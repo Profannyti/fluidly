@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#83c1ff] to-[#FFFFFF] dark:from-[#1E2A44] dark:to-[#121826] font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen bg-gradient-to-b from-[#53bd0c] to-[#FFFFFF] dark:from-[#1E2A44] dark:to-[#121826] font-[family-name:var(--font-geist-sans)]">
       {/* Minimalistic Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#1E2A44]/80 backdrop-blur-md p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -44,7 +44,7 @@ export default function Home() {
       {/* Hero Section */}
       <main className="pt-24 pb-20 px-8 sm:px-20 flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center">
         <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-black dark:text-white">
-          Welcome to Fluidly by R&P
+          Welcome to Fuddii by R&P
         </h1>
         <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-xl">
           Create elegant, modern web experiences with Next.js and shadcn.
