@@ -6,6 +6,7 @@ import { Caprasimo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { MenuIcon, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,16 +33,32 @@ interface NavbarItemProps {
 
 const NavbarItem = ({ href, children, isActive }: NavbarItemProps) => {
   return (
-    <Button
-      asChild
-      variant="ghost"
-      className={cn(
-        "font-semibold text-base cursor-pointer",
-        isActive && "text-[#3FCAFF] dark:text-[#3FCAFF]"
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      whileTap={{ scale: 0.95 }}
+      whileHover={{
+        x: 5,
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 20,
+          mass: 0.5,
+        },
+      }}
     >
-      <Link href={href}>{children}</Link>
-    </Button>
+      <Button
+        asChild
+        variant="ghost"
+        className={cn(
+          "font-semibold text-base cursor-pointer",
+          isActive && "text-[#3FCAFF] hover:text-[#3FCAFF] dark:text-[#3FCAFF]"
+        )}
+      >
+        <Link href={href}>{children}</Link>
+      </Button>
+    </motion.div>
   );
 };
 
@@ -58,18 +75,45 @@ export const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { setTheme } = useTheme();
 
+  const navItemsVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const themeToggleVariants = {
+    initial: { rotate: -90, scale: 0 },
+    animate: { rotate: 0, scale: 1 },
+    exit: { rotate: 90, scale: 0 },
+  };
+
   return (
-    <nav className="h-[80px] flex border-b-2 justify-between font-medium items-center px-4 lg:px-0">
-      <Link href="/" className="pl-4 lg:pl-16 items-center flex gap-3">
-        <span
-          className={cn(
-            "text-3xl font-semibold text-nowrap",
-            caprasimo.className
-          )}
-        >
-          Fluidly.
-        </span>
-      </Link>
+    <motion.nav
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="h-[80px] flex border-b-2 justify-between font-medium items-center px-4 lg:px-0"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <Link href="/" className="pl-4 lg:pl-16 items-center flex gap-3">
+          <span
+            className={cn(
+              "text-3xl font-semibold text-nowrap text-[#3fcaff]",
+              caprasimo.className
+            )}
+          >
+            Fluidly.
+          </span>
+        </Link>
+      </motion.div>
 
       <NavbarSidebar
         items={NavbarItems}
@@ -77,7 +121,12 @@ export const Navbar = () => {
         onOpenChange={setIsSidebarOpen}
       />
 
-      <div className="items-center gap-5 hidden lg:flex">
+      <motion.div
+        className="items-center gap-5 hidden lg:flex"
+        variants={navItemsVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {NavbarItems.map((item) => (
           <NavbarItem
             key={item.href}
@@ -87,7 +136,7 @@ export const Navbar = () => {
             {item.children}
           </NavbarItem>
         ))}
-      </div>
+      </motion.div>
 
       <div className="flex items-center gap-4">
         {/* Desktop Buttons */}
@@ -95,8 +144,22 @@ export const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={useTheme().theme === "dark" ? "moon" : "sun"}
+                    variants={themeToggleVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    transition={{ duration: 0.2 }}
+                  >
+                    {useTheme().theme === "dark" ? (
+                      <Moon className="h-[1.2rem] w-[1.2rem]" />
+                    ) : (
+                      <Sun className="h-[1.2rem] w-[1.2rem]" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
                 <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>
@@ -119,8 +182,22 @@ export const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={useTheme().theme === "dark" ? "moon" : "sun"}
+                    variants={themeToggleVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    transition={{ duration: 0.2 }}
+                  >
+                    {useTheme().theme === "dark" ? (
+                      <Moon className="h-[1.2rem] w-[1.2rem]" />
+                    ) : (
+                      <Sun className="h-[1.2rem] w-[1.2rem]" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
                 <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>
@@ -137,15 +214,26 @@ export const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button
-            variant="ghost"
-            className="size-10"
-            onClick={() => setIsSidebarOpen(true)}
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.2 }}
           >
-            <MenuIcon className="size-6" />
-          </Button>
+            <Button
+              variant="ghost"
+              className="size-10"
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              <motion.div
+                animate={{ rotate: isSidebarOpen ? 90 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <MenuIcon className="size-6" />
+              </motion.div>
+            </Button>
+          </motion.div>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
