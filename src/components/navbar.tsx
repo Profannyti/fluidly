@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import { Caprasimo } from "next/font/google";
 import { usePathname } from "next/navigation";
