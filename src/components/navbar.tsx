@@ -6,7 +6,7 @@ import { Caprasimo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { MenuIcon, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -74,9 +74,7 @@ export const Navbar = () => {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { setTheme } = useTheme();
-  const prefersReducedMotion = useReducedMotion();
 
-  // Animation variants for navbar items container
   const navItemsVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -87,7 +85,6 @@ export const Navbar = () => {
     },
   };
 
-  // Animation variants for theme toggle
   const themeToggleVariants = {
     initial: { rotate: -90, scale: 0 },
     animate: { rotate: 0, scale: 1 },
