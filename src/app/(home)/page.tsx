@@ -1,3 +1,4 @@
+import Hero from "@/components/Hero";
 import { cn } from "@/lib/utils";
 import { Caprasimo } from "next/font/google";
 
@@ -28,6 +29,8 @@ export default function Home() {
           Fluidly is a collection of best practices that designers can consider
           when building user interfaces.
         </p>
+
+        <Hero />
       </main>
     </div>
   );
