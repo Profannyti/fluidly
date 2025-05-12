@@ -12,13 +12,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { NavbarSidebar } from "./navbar-sidebar";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
 const caprasimo = Caprasimo({
   variable: "--font-caprasimo",
   subsets: ["latin"],
@@ -73,7 +66,7 @@ const NavbarItems = [
 export const Navbar = () => {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   const navItemsVariants = {
     hidden: { opacity: 0 },
@@ -89,6 +82,10 @@ export const Navbar = () => {
     initial: { rotate: -90, scale: 0 },
     animate: { rotate: 0, scale: 1 },
     exit: { rotate: 90, scale: 0 },
+  };
+
+  const handleThemeToggle = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -141,78 +138,53 @@ export const Navbar = () => {
       <div className="flex items-center gap-4">
         {/* Desktop Buttons */}
         <div className="hidden lg:flex items-center gap-4 mr-16">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={useTheme().theme === "dark" ? "moon" : "sun"}
-                    variants={themeToggleVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    transition={{ duration: 0.2 }}
-                  >
-                    {useTheme().theme === "dark" ? (
-                      <Moon className="h-[1.2rem] w-[1.2rem]" />
-                    ) : (
-                      <Sun className="h-[1.2rem] w-[1.2rem]" />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                Light
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                Dark
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
-                System
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleThemeToggle}
+            className="cursor-pointer"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={theme === "dark" ? "moon" : "sun"}
+                variants={themeToggleVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.2 }}
+              >
+                {theme === "dark" ? (
+                  <Moon className="h-8 w-8" />
+                ) : (
+                  <Sun className="h-8 w-8" />
+                )}
+              </motion.div>
+            </AnimatePresence>
+            <span className="sr-only">Toggle theme</span>
+          </Button>
         </div>
 
         {/* Mobile Menu Toggle and Theme Toggle */}
         <div className="flex lg:hidden items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={useTheme().theme === "dark" ? "moon" : "sun"}
-                    variants={themeToggleVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    transition={{ duration: 0.2 }}
-                  >
-                    {useTheme().theme === "dark" ? (
-                      <Moon className="h-[1.2rem] w-[1.2rem]" />
-                    ) : (
-                      <Sun className="h-[1.2rem] w-[1.2rem]" />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                Light
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                Dark
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
-                System
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button variant="ghost" size="icon" onClick={handleThemeToggle}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={theme === "dark" ? "moon" : "sun"}
+                variants={themeToggleVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.2 }}
+              >
+                {theme === "dark" ? (
+                  <Moon className="h-8 w-8" />
+                ) : (
+                  <Sun className="h-8 w-8" />
+                )}
+              </motion.div>
+            </AnimatePresence>
+            <span className="sr-only">Toggle theme</span>
+          </Button>
 
           <motion.div
             whileHover={{ scale: 1.1 }}
