@@ -2,14 +2,9 @@
 
 import BentoGrid from "@/components/bento-grid";
 import { BlogCarousel } from "@/components/carousel";
-
-import Footer from "@/components/Footer";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Caprasimo } from "next/font/google";
-import { Separator } from "@/components/ui/separator";
-
-
 
 const caprasimo = Caprasimo({
   variable: "--font-caprasimo",
