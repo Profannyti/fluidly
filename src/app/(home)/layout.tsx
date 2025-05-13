@@ -1,6 +1,5 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
-
 
 interface Props {
   children: React.ReactNode;

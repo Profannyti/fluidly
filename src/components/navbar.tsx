@@ -101,7 +101,7 @@ export const Navbar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="h-[80px] flex border-b-2 justify-between font-medium items-center px-4 lg:px-0"
+      className="h-[80px] flex border-b-2 justify-between font-medium items-center px-6"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -145,7 +145,7 @@ export const Navbar = () => {
 
       <div className="flex items-center gap-4">
         {/* Desktop Buttons */}
-        <div className="hidden lg:flex items-center gap-4 mr-16">
+        <div className="hidden lg:flex items-center gap-4 mr-36">
           <Button
             variant="ghost"
             size="icon"
