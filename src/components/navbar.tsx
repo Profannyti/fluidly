@@ -67,11 +67,10 @@ export const Navbar = () => {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { theme: themeFromHook, setTheme } = useTheme();
-  const [mountedTheme, setMountedTheme] = useState("light"); // Default for SSR
+  const [mountedTheme, setMountedTheme] = useState("light");
 
-  // Sync theme on client-side after hydration
   useEffect(() => {
-    setMountedTheme(themeFromHook || "light"); // Use theme from next-themes or fallback
+    setMountedTheme(themeFromHook || "light");
   }, [themeFromHook]);
 
   const navItemsVariants = {
@@ -93,7 +92,7 @@ export const Navbar = () => {
   const handleThemeToggle = () => {
     const newTheme = mountedTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-    setMountedTheme(newTheme); // Update local state immediately
+    setMountedTheme(newTheme);
   };
 
   return (
@@ -101,7 +100,7 @@ export const Navbar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="h-[80px] flex border-b-2 justify-between font-medium items-center px-4 lg:px-0"
+      className="h-[80px] flex border-b-2 justify-between font-medium items-center px-6"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -145,7 +144,7 @@ export const Navbar = () => {
 
       <div className="flex items-center gap-4">
         {/* Desktop Buttons */}
-        <div className="hidden lg:flex items-center gap-4 mr-16">
+        <div className="hidden lg:flex items-center gap-4 mr-36">
           <Button
             variant="ghost"
             size="icon"

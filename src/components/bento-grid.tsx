@@ -69,12 +69,9 @@ const BentoGrid = ({ className }: Props) => {
   const prefersReducedMotion = useReducedMotion();
   const regex = /(Fluidly)(\.?)/i;
 
-  // Softer easing curve for smoother hover transitions
-  const smoothEase = [0.25, 0.1, 0.25, 1]; // Ease-in-out for seamless start/end
-  // Apple-inspired easing for entrance animation
+  const smoothEase = [0.25, 0.1, 0.25, 1];
   const appleEase = [0.16, 1, 0.3, 1];
 
-  // Animation variants for cards
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -88,7 +85,7 @@ const BentoGrid = ({ className }: Props) => {
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      {/* Single-column layout for md and below */}
+      {/* Single-column layout for sm and below */}
       <div className="flex flex-col gap-4 md:hidden">
         {layout.flat().map((card, cardIndex) => {
           const parts = card.title.split(regex);
@@ -108,9 +105,9 @@ const BentoGrid = ({ className }: Props) => {
                 prefersReducedMotion
                   ? {}
                   : {
-                      y: -5, // Subtle lift
-                      scale: 1.02, // Slight scale for depth
-                      boxShadow: "0 4px 10px rgba(63, 202, 255, 0.15)", // Softer #3FCAFF glow
+                      y: -5,
+                      scale: 1.02,
+                      boxShadow: "0 4px 10px rgba(63, 202, 255, 0.15)",
                       transition: { duration: 0.3, ease: smoothEase },
                     }
               }
@@ -146,7 +143,10 @@ const BentoGrid = ({ className }: Props) => {
       {/* Row-based layout for md and above */}
       <div className="hidden md:flex md:flex-col md:gap-4">
         {layout.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex flex-col gap-4 lg:flex-row">
+          <div
+            key={rowIndex}
+            className="flex flex-col gap-4 md:flex-row md:flex-1"
+          >
             {row.map((card, cardIndex) => {
               const parts = card.title.split(regex);
 
@@ -179,9 +179,9 @@ const BentoGrid = ({ className }: Props) => {
                           transition: { duration: 0.15, ease: smoothEase },
                         }
                   }
-                  className="rounded-2xl flex items-end text-white p-5"
+                  className="rounded-2xl flex items-end text-white p-5 md:flex-1 lg:flex-none"
                   style={{
-                    width: card.width,
+                    width: card.width, // Applies only at lg and above
                     height: card.height,
                     backgroundColor: card.color,
                   }}
