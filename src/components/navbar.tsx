@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Caprasimo } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { MenuIcon, Moon, Sun } from "lucide-react";
@@ -66,7 +66,13 @@ const NavbarItems = [
 export const Navbar = () => {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme: themeFromHook, setTheme } = useTheme();
+  const [mountedTheme, setMountedTheme] = useState("light"); // Default for SSR
+
+  // Sync theme on client-side after hydration
+  useEffect(() => {
+    setMountedTheme(themeFromHook || "light"); // Use theme from next-themes or fallback
+  }, [themeFromHook]);
 
   const navItemsVariants = {
     hidden: { opacity: 0 },
@@ -85,7 +91,9 @@ export const Navbar = () => {
   };
 
   const handleThemeToggle = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    const newTheme = mountedTheme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    setMountedTheme(newTheme); // Update local state immediately
   };
 
   return (
@@ -146,14 +154,14 @@ export const Navbar = () => {
           >
             <AnimatePresence mode="wait">
               <motion.div
-                key={theme === "dark" ? "moon" : "sun"}
+                key={mountedTheme === "dark" ? "moon" : "sun"}
                 variants={themeToggleVariants}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 transition={{ duration: 0.2 }}
               >
-                {theme === "dark" ? (
+                {mountedTheme === "dark" ? (
                   <Moon className="h-8 w-8" />
                 ) : (
                   <Sun className="h-8 w-8" />
@@ -169,14 +177,14 @@ export const Navbar = () => {
           <Button variant="ghost" size="icon" onClick={handleThemeToggle}>
             <AnimatePresence mode="wait">
               <motion.div
-                key={theme === "dark" ? "moon" : "sun"}
+                key={mountedTheme === "dark" ? "moon" : "sun"}
                 variants={themeToggleVariants}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 transition={{ duration: 0.2 }}
               >
-                {theme === "dark" ? (
+                {mountedTheme === "dark" ? (
                   <Moon className="h-8 w-8" />
                 ) : (
                   <Sun className="h-8 w-8" />

@@ -1,6 +1,7 @@
 "use client";
 
 import BentoGrid from "@/components/bento-grid";
+import { BlogCarousel } from "@/components/carousel";
 
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -87,6 +88,7 @@ export default function Home() {
           </motion.p>
         </div>
         <BentoGrid className="my-10" />
+        <BlogCarousel className="my-10" />
       </main>
     </div>
   );
