@@ -67,11 +67,10 @@ export const Navbar = () => {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { theme: themeFromHook, setTheme } = useTheme();
-  const [mountedTheme, setMountedTheme] = useState("light"); // Default for SSR
+  const [mountedTheme, setMountedTheme] = useState("light");
 
-  // Sync theme on client-side after hydration
   useEffect(() => {
-    setMountedTheme(themeFromHook || "light"); // Use theme from next-themes or fallback
+    setMountedTheme(themeFromHook || "light");
   }, [themeFromHook]);
 
   const navItemsVariants = {
@@ -93,7 +92,7 @@ export const Navbar = () => {
   const handleThemeToggle = () => {
     const newTheme = mountedTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-    setMountedTheme(newTheme); // Update local state immediately
+    setMountedTheme(newTheme);
   };
 
   return (
