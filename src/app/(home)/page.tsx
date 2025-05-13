@@ -3,9 +3,13 @@
 import BentoGrid from "@/components/bento-grid";
 import { BlogCarousel } from "@/components/carousel";
 
+import Footer from "@/components/Footer";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Caprasimo } from "next/font/google";
+import { Separator } from "@/components/ui/separator";
+
+
 
 const caprasimo = Caprasimo({
   variable: "--font-caprasimo",
@@ -55,7 +59,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <main className="py-10 pb-20 px-8 sm:px-20 flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
+      <main className="py-10 pb-20 px-8 sm:px-20 flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center relative">
         <div className="my-8 max-sm:my-4">
           <motion.div
             variants={titleVariants}
