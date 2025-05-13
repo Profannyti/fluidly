@@ -10,6 +10,7 @@ const Footer = () => {
         <div className="w-[50%] h-52 bg-[#88A9FF] rounded-2xl flex items-end justify-center">
           <div className="bg-white w-[70%] h-8 rounded-3xl my-10 flex justify-end items-center">
             <Button className="rounded-3xl h-6 w-[20%] mx-1.5 bg-black" />
+            
           </div>
         </div>
       </div>
