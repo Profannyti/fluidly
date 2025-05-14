@@ -6,6 +6,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Caprasimo } from "next/font/google";
 
+import Banner from "@/components/Banner";
+
 const caprasimo = Caprasimo({
   variable: "--font-caprasimo",
   subsets: ["latin"],
@@ -88,6 +90,8 @@ export default function Home() {
         </div>
         <BentoGrid className="my-10" />
         <BlogCarousel className="my-10" />
+        <br />
+        <Banner />
       </main>
     </div>
   );
