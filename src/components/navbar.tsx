@@ -217,38 +217,134 @@
 //   );
 // };
 
+
+// "use client";
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+//  import { MenuIcon, Moon, Sun } from "lucide-react";
+//  import { useTheme } from "next-themes";
+
+// const Navbar = () => {
+//   const { theme: themeFromHook, setTheme } = useTheme();
+//   const [mountedTheme, setMountedTheme] = useState("light");
+//   const [color, setColor] = useState(false);
+
+//    const handleThemeToggle = () => {
+//      const newTheme = mountedTheme === "dark" ? "light" : "dark";
+//      setTheme(newTheme);
+//      setMountedTheme(newTheme);
+//    };
+
+//   const changeColor = () => {
+//     if (window.scrollY > 0) {
+//       setColor(true);
+//     } else {
+//       setColor(false);
+//     }
+//   };
+
+  
+//     const themeToggleVariants = {
+//      initial: { rotate: -90, scale: 0 },
+//      animate: { rotate: 0, scale: 1 },
+//      exit: { rotate: 90, scale: 0 },
+//     };
+
+//   useEffect(() => {
+//     window.addEventListener("scroll", changeColor);
+//     return () => {
+//       window.removeEventListener("scroll", changeColor);
+//     };
+//   }, []);
+
+//   return (
+//     <div
+//       className={`w-full py-[20px] px-[60px] sticky top-0 z-50 transition-colors duration-300 ease-in-out  ${
+//         color ? "bg-black text-white" : "bg-transparent text-black"
+//       }`}
+//     >
+//       <div className="flex justify-between items-center w-full ">
+//         {/* Left: Logo */}
+//         <div className="text-[28px] font-bold">
+//           <Link href="/"><i>Fluidly.</i></Link>
+//         </div>
+
+//         {/* Center: Nav Links */}
+//         <div className="flex max-[1000px]:hidden gap-[70px] text-[16px]">
+//           <Link href="/research">Research</Link>
+//           <Link href="/products">Products</Link>
+//           <Link href="/studio">Studio</Link>
+//           <Link href="/company">Company</Link>
+//         </div>
+
+//         {/* Right: Button */}
+//         <Link href="/get-started">
+//           <button className="text-[16px] rounded-[30px] border-[2px] px-[20px] py-[14px] w-[150px] h-[50px] flex items-center justify-center cursor-pointer">
+//             Get Started
+//           </button>
+//         </Link>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Navbar;
+
+
+
+//final navbar with dark and light mode functionality.
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Navbar = () => {
-  const [color, setColor] = useState(false);
-
-  const changeColor = () => {
-    if (window.scrollY > 1) {
-      setColor(true);
-    } else {
-      setColor(false);
-    }
-  };
+  const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", changeColor);
-    return () => {
-      window.removeEventListener("scroll", changeColor);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 1);
     };
+
+    window.addEventListener("scroll", handleScroll);
+    setMounted(true); // ensures hydration match for theme icon
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleThemeToggle = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
+
+  // Determine navbar classes based on theme and scroll
+  const getNavbarClasses = () => {
+  if (!scrolled) {
+    return "bg-transparent text-black dark:text-white";
+  }
+
+  if (theme === "dark") {
+    return "bg-[#1e1e1e] text-white"; // transparent when scrolled in dark mode
+  } else {
+    return "bg-black text-white"; // black background when scrolled in light mode
+  }
+};
+
 
   return (
     <div
-      className={`w-full py-[20px] px-[60px] sticky top-0 z-50 transition-colors duration-300 ease-in-out ${
-        color ? "bg-black text-white" : "bg-transparent text-black"
-      }`}
+      className={`w-full py-[20px] px-[60px] sticky top-0 z-50 transition-colors duration-300 ease-in-out ${getNavbarClasses()}`}
     >
-      <div className="flex justify-between items-center w-full ">
+      <div className="flex justify-between items-center w-full">
         {/* Left: Logo */}
         <div className="text-[28px] font-bold">
-          <Link href="/"><i>Fluidly.</i></Link>
+          <Link href="/">
+            <i>Fluidly.</i>
+          </Link>
         </div>
 
         {/* Center: Nav Links */}
@@ -259,12 +355,28 @@ const Navbar = () => {
           <Link href="/company">Company</Link>
         </div>
 
-        {/* Right: Button */}
-        <Link href="/get-started">
-          <button className="text-[16px] rounded-[30px] border-[2px] px-[20px] py-[14px] w-[150px] h-[50px] flex items-center justify-center cursor-pointer">
-            Get Started
-          </button>
-        </Link>
+        {/* Right: Theme Toggle and Button */}
+        <div className="flex items-center gap-4">
+          {mounted && (
+            <button onClick={handleThemeToggle} className="cursor-pointer">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={theme}
+                  initial={{ rotate: -90, scale: 0 }}
+                  animate={{ rotate: 0, scale: 1 }}
+                  exit={{ rotate: 90, scale: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {theme === "dark" ? (
+                    <Moon className="h-6 w-6" />
+                  ) : (
+                    <Sun className="h-6 w-6" />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
