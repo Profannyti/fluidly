@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Caprasimo } from "next/font/google";
 
 import Banner from "@/components/Banner";
+import Herocard from "@/components/Herocard";
 
 const caprasimo = Caprasimo({
   variable: "--font-caprasimo",
@@ -56,7 +57,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <main className="py-10 pb-20 px-8 sm:px-20 flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center relative">
+      <main className="py-10 pb-20 px-8 sm:px-20 flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center relative w-full">
         <div className="my-8 max-sm:my-4">
           <motion.div
             variants={titleVariants}
@@ -91,7 +92,8 @@ export default function Home() {
         <BentoGrid className="my-10" />
         <BlogCarousel className="my-10" />
         <br />
-        <Banner />
+        <Herocard />
+        <Banner/>
       </main>
     </div>
   );
