@@ -4,15 +4,22 @@ import BentoGrid from "@/components/bento-grid";
 import { BlogCarousel } from "@/components/carousel";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Caprasimo } from "next/font/google";
+import { IBM_Plex_Serif, Inter } from "next/font/google";
 
 import Banner from "@/components/Banner";
 import Herocard from "@/components/Herocard";
 
-const caprasimo = Caprasimo({
-  variable: "--font-caprasimo",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["100","200","300","400","500","600","700","800","900"],
+});
+
+const IBMPlexSerif = IBM_Plex_Serif({
+  variable: "--font-IBMPlexSerif",
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700"],
+  style: ["normal", "italic"],
 });
 
 export default function Home() {
@@ -65,7 +72,7 @@ export default function Home() {
             animate="visible"
             className={cn(
               "text-7xl max-sm:text-5xl font-bold tracking-tight text-black dark:text-white",
-              caprasimo.className
+              inter.className
             )}
           >
             It&apos;s not Magic.
@@ -75,7 +82,7 @@ export default function Home() {
               animate="visible"
               className="mt-2"
             >
-              It&apos;s <span className="text-[#3FCAFF]">Fluidly.</span>
+              It&apos;s <span className={`text-[#3FCAFF] ${IBMPlexSerif.className} italic font-light`}>Fluidly.</span>
             </motion.div>
           </motion.div>
 
@@ -83,7 +90,7 @@ export default function Home() {
             variants={subtextVariants}
             initial="hidden"
             animate="visible"
-            className="text-md font-medium text-gray-700 dark:text-gray-300 max-w-full pt-4"
+            className={`text-md font-normal text-gray-700 dark:text-gray-300 max-w-full pt-4 ${IBMPlexSerif.className}`}
           >
             Fluidly is a collection of best practices that designers can
             consider when building user interfaces.

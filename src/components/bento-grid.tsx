@@ -1,13 +1,20 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Caprasimo } from "next/font/google";
+import { IBM_Plex_Serif, Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const caprasimo = Caprasimo({
-  variable: "--font-caprasimo",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["100","200","300","400","500","600","700","800","900"],
+});
+
+const IBMPlexSerif = IBM_Plex_Serif({
+  variable: "--font-IBMPlexSerif",
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700"],
+  style: ["normal", "italic"],
 });
 
 const layout = [
@@ -127,7 +134,7 @@ const BentoGrid = ({ className }: Props) => {
             >
               <span
                 className={cn(
-                  caprasimo.className,
+                  IBMPlexSerif.className,
                   "text-2xl font-semibold leading-tight transition-colors duration-300"
                 )}
               >
@@ -188,8 +195,8 @@ const BentoGrid = ({ className }: Props) => {
                 >
                   <span
                     className={cn(
-                      caprasimo.className,
-                      "text-3xl font-semibold leading-tight transition-colors duration-300"
+                      IBMPlexSerif.className,
+                      "text-2xl font-semibold leading-tight transition-colors duration-300"
                     )}
                   >
                     {parts[0]}

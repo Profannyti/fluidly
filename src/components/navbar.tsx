@@ -300,6 +300,20 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { IBM_Plex_Serif, Inter } from "next/font/google";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700","800","900"],
+});
+
+const IBMPlexSerif = IBM_Plex_Serif({
+  variable: "--font-IBMPlexSerif",
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700"],
+  style: ["normal", "italic"],
+});
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -343,12 +357,12 @@ const Navbar = () => {
         {/* Left: Logo */}
         <div className="text-[28px] font-bold">
           <Link href="/">
-            <i>Fluidly.</i>
+            <i className={`${IBMPlexSerif.className} italic`}>Fluidly.</i>
           </Link>
         </div>
 
         {/* Center: Nav Links */}
-        <div className="flex max-[1000px]:hidden gap-[70px] text-[16px]">
+        <div className={`flex max-[1000px]:hidden gap-[70px] text-[16px] ${inter.className}`}>
           <Link href="/research">Research</Link>
           <Link href="/products">Products</Link>
           <Link href="/studio">Studio</Link>
