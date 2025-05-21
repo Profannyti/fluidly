@@ -1,12 +1,20 @@
 "use client";
 
-import { Cormorant_Infant } from "next/font/google";
+import { motion, useReducedMotion } from "framer-motion";
+import { IBM_Plex_Serif, Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const cormorantInfant = Cormorant_Infant({
-  variable: "--font-cormorant-infant",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "600",
+  weight: ["100","200","300","400","500","600","700","800","900"],
+});
+
+const IBMPlexSerif = IBM_Plex_Serif({
+  variable: "--font-IBMPlexSerif",
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700"],
+  style: ["normal", "italic"],
 });
 
 const layout = [
@@ -91,8 +99,8 @@ const BentoGrid = ({ className }: Props) => {
             >
               <span
                 className={cn(
-                  cormorantInfant.className,
-                  "text-lg sm:text-xl font-semibold leading-tight transition-colors duration-300"
+                  IBMPlexSerif.className,
+                  "text-2xl font-semibold leading-tight transition-colors duration-300"
                 )}
               >
                 {parts[0]}
@@ -132,8 +140,8 @@ const BentoGrid = ({ className }: Props) => {
                 >
                   <span
                     className={cn(
-                      cormorantInfant.className,
-                      "text-3xl font-semibold leading-tight transition-colors duration-300"
+                      IBMPlexSerif.className,
+                      "text-2xl font-semibold leading-tight transition-colors duration-300"
                     )}
                   >
                     {parts[0]}
