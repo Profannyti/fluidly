@@ -1,14 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { IBM_Plex_Serif, Inter } from "next/font/google";
+import { IBM_Plex_Serif } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["100","200","300","400","500","600","700","800","900"],
-});
 
 const IBMPlexSerif = IBM_Plex_Serif({
   variable: "--font-IBMPlexSerif",
